@@ -1,0 +1,19 @@
+
+/* Change Bkgrnd Color */
+body {
+  background-color: lightblue;
+}
+
+/* Age Input Smaller */
+#age {
+  width: 30%;  
+}
+
+/* Drop Down Input Smaller */
+#problemState {
+  width: 46%;
+}
+
+h1 {
+  color: blue;
+}

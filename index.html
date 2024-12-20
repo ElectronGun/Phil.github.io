@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Healthcare Portfolio</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('PXL_20240719_210140932.crop.jpg') no-repeat right center fixed;
+    background-size: cover;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        header, footer, nav {
+            background-color: #2a9d8f;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        header {
+            position: relative;
+        }
+        header h1 {
+            color: white;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .dark-mode nav, .dark-mode footer, .dark-mode header {
+            background-color: #1e88e5;
+        }
+        .switch {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .dark-mode-label {
+            color: white;
+            position: absolute;
+            top: 3.5rem;
+            right: 1rem;
+            font-weight: bold;
+        }
+        .container {
+            padding: 2rem;
+        }
+        h2, h3 {
+            color: #2a9d8f;
+        }
+        .bio, .projects, .skills, .contact {
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .dark-mode .bio, .dark-mode .projects, .dark-mode .skills, .dark-mode .contact {
+            background-color: rgba(18, 18, 18, 0.9);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .bio img {
+            float: left;
+            margin: 0 1rem 1rem 0;
+            width: 150px;
+            height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .bio p {
+            margin: 0.5rem 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+        a {
+            color: #2a9d8f;
+        }
+        .dark-mode a {
+            color: #fff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .project img:hover {
+            transform: scale(1.2);
+            transition: transform 0.3s;
+        }
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .icon {
+            width: 100px; /* Same size as the project images */
+            height: 60px; /* Same size as the project images */
+            margin-bottom: 30px; /* Adds space between the icons */
+            transition: transform 0.5s, opacity 0.5s;
+            opacity: 0;
+        }
+        @keyframes shuffle {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        :root {
+            --arrow-movement: calc(45vw - 30px); /* 3/4 of the viewport width minus a little padding */
+        }
+
+        .contact {
+            position: relative; /* Ensure the contact section is positioned relative for absolute positioning inside */
+            overflow: hidden; /* Prevent overflow from the arrow */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            right: -50px; /* Start position of the arrow, outside the right boundary */
+            transform: translateY(-50%);
+            font-size: 48px;
+            opacity: 0;
+            transition: right 0.5s, opacity 0.5s;
+        }
+
+        .contact:hover .arrow {
+            right: var(--arrow-movement); /* Move the arrow 3/4 of the page width */
+            opacity: 1;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to My Portfolio!</h1>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="dark-mode-label">Dark Mode</span>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#bio">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="bio" class="bio">
+            <h2>About Me</h2>
+            <img src="phSuit-img.jpg" alt="Healthcare Professional">
+            <p>Hi there! I'm Phil, currently pursuing an Honours degree in Digital Health at Mohawk College. With a strong foundation in operating room support and a passion for leveraging technology to improve healthcare, I bring a unique blend of technical expertise and hands-on experience.</p>
+            <p>🔬 <strong>Background:</strong> Operating Room Attendant at Joseph Brant Hospital, where I've supported surgical teams and maintained high standards and efficiency.</p> 
+            <p>📊 <strong>Skills:</strong> Proficient in data analysis, 6-Sigma methodologies, and process improvement. Experienced in using tools like Excel and Minitab to optimize data and drive operational efficiency.</p> 
+            <p>💡 <strong>Projects:</strong> Actively involved in Continuous Improvement initiatives, applying my skills to real-world healthcare challenges.</p> 
+            <p>🌟 <strong>Goal:</strong> Eager to contribute to innovative healthcare solutions and continuously learn and adapt in the dynamic field of digital health.</p>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2>Projects</h2>
+            <div class="project row mb-3">
+                <div class="col-md-9">
+                    <h3 class="mb-1">Digital Pre-Operative Surgical Checklist</h3>
+                    <p class="mb-1"><strong>Description:</strong> A digital checklist with the ability to add, modify, and delete the questions. The status of questions can be changed to yes, no, or N/A.</p>
+                    <p class="mb-1"><strong>Technologies Used:</strong> HTML, CSS, React, JSX, JavaScript, Functional Components, React Hooks (useState)</p>
+                </div>
+                <div class="col-md-3 text-right">
+                    <a href="surgicalChecklist.html">
+                        <img src="surgchecklist-pic.png" alt="Digital Pre-Operative Surgical Checklist" class="img-fluid" style="width: 100px; height: 100px;">
+                    </a>
+                </div>
+            </div>
+            <div class="project row mb-3">
+                <div class="col-md-9">
+                    <h3 class="mb-1">Digital Drug Information Finder</h3>
+                    <p class="mb-1"><strong>Description:</strong> An app which allows the user to search the 2 different FDA databases for current or discontinued drugs. Search by generic or trade names. Error trapping is included.</p>
+                    <p class="mb-1"><strong>Technologies Used:</strong> React Native, React, useState Hook, Fetch API, Axios, Stylesheet, Alert, JSX</p>
+                </div>
+                <div class="col-md-3 text-right">
+                    <a href="2024-10-20 10-45-09.mp4">
+                        <img src="druginfofinder-pic.png" alt="Digital Drug Information Finder" class="img-fluid" style="width: 100px; height: 100px;">
+                    </a>
+                </div>
+            </div>
+            <div class="project row mb-3">
+                <div class="col-md-9">
+                    <h3 class="mb-1">Android WearOS Random Direction Game</h3>
+                    <p class="mb-1"><strong>Description:</strong> A WearOS app which randomly generates directions for the wearer to move. The score increases with each correct move in the X, Y, or Z directions.</p>
+                    <p class="mb-1"><strong>Technologies Used:</strong> Java, Android SDK, Accelerometer, Random</p>
+                </div>
+                <div class="col-md-3 text-right">
+                    <a href="2024-11-22 12-35-22.mp4">
+                        <img src="wearos-pic.png" alt="Android WearOS Random Direction Game" class="img-fluid" style="width: 100px; height: 100px;">
+                    </a>
+                </div>
+            </div>
+            <div class="project row mb-3">
+                <div class="col-md-9">
+                    <h3 class="mb-1">Multi Symptom Checker - Triage</h3>
+                    <p class="mb-1"><strong>Description:</strong> A digital symptom checker which accepts age, cough type, and status as inputs to triage the patient. Pediatrics are also considered.</p>
+                    <p class="mb-1"><strong>Technologies Used:</strong> HTML, CSS, JavaScript, Bootstrap, jQuery</p>
+                </div>
+                <div class="col-md-3 text-right">
+                    <a href="symptom.html">
+                        <img src="symptom-pic.png" alt="Multi Symptom Checker - Triage" class="img-fluid" style="width: 100px; height: 100px;">
+                    </a>
+                </div>
+            </div>
+            <div class="project row mb-3">
+                <div class="col-md-9">
+                    <h3 class="mb-1">Capstone Level - Instrument Management System (IMS) - In Progress</h3>
+                    <p class="mb-1"><strong>Description:</strong> A digital autonomous system capable of tracking the status and location of sterilized medical equipment. The system uses a SQL database which interfaces with a barcoded list.</p>
+                    <p class="mb-1"><strong>Technologies Used:</strong> HTML, CSS, JavaScript, Bootstrap, Fetch, PHP</p>
+                </div>
+                <div class="col-md-3 text-right">
+                    
+                        <img src="ims-pic.png" alt="Instrument Management System" class="img-fluid" style="width: 100px; height: 100px;">
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <h2>Skills & Certifications</h2>
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <ul id="skillsList">
+                        <li><strong>Programming Languages:</strong> Developing Java, C#, JavaScript, PHP</li>
+                        <li><strong>Tools and Technologies:</strong> Microsoft Suite, Minitab, AI Prompt Engineering, Visio, VS Code</li>
+                        <li><strong>Soft Skills:</strong> Team collaboration, Problem-solving, Project management</li>
+                    </ul>
+                    <h3>Certifications</h3>
+                    <ul id="certificationsList">
+                        <li><strong>Medical Device Reprocessing & Operating Room Attendant:</strong> 2021-2022</li>
+                        <li><strong>Medical Foundations (HMX) Online – Harvard Medical School:</strong> 2020-2022</li>
+                        <li><strong>Electrochemistry – University of Bath:</strong> 2010</li>
+                        <li><strong>Radiation & X-ray Safety Officer – Radiation Safety Institute of Canada:</strong> 2007-2008</li>
+                        <li><strong>6-Sigma Greenbelt Certification – Eminent Tech Corp:</strong> 2006-2007</li>
+                    </ul>
+                </div>
+                <div id="iconContainer" class="col-md-3 d-flex flex-column justify-content-center align-items-left">
+                    <!-- Icons will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Contact</h2>
+            <div id="contactContainer" class="position-relative">
+                <div class="arrow-container">
+                    <div class="arrow">&#8592; Hire Me!</div> <!-- Unicode left arrow with text -->
+                </div>
+                <p>Email: <span id="email"></span></p>
+                <p>GitHub: <span id="github"></span></p>
+            </div>
+        </section>
+        
+        
+    </div>
+    <footer>
+        <p>&copy; Phil H 2024</p>
+        <p id="visitCounter">This Page Has Been Visited By 0 Great People!</p>
+    </footer>
+
+    <!-- Obfuscate the email and link from scraping -->
+    <script>
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        let part1 = "philhutchison";
+        let part2 = "outlook.com";
+        document.getElementById("email").innerHTML = '<a href="mailto:' + part1 + '@' + part2 + '">' + part1 + '@' + part2 + '</a>';
+
+        let gitUser = "ElectronGun";
+        document.getElementById("github").innerHTML = '<a href="https://github.com/' + gitUser + '">GitHub Profile</a>';
+    </script>
+
+    <script>
+        // Get the current visit count from localStorage
+        let visitCount = localStorage.getItem('visitCount');
+
+        // If visitCount is null, initialize it to 0
+        if (visitCount === null) {
+            visitCount = 0;
+        }
+
+        // Increment the visit count
+        visitCount++;
+
+        // Save the new visit count back to localStorage
+        localStorage.setItem('visitCount', visitCount);
+
+        // Update the visit counter text
+        document.getElementById('visitCounter').innerText = `This Page Has Been Visited By ${visitCount} Great People!`;
+    </script>
+    
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const icons = [
+            'react-img.jpg',
+            'Java-img.jpg',
+            'visio-img.jpg',
+            'JS-image.jpg',
+            'vscode-img.jpg',
+            'csharp-img.jpg',
+            'php-img.jpg',
+            'harvard-img.jpg',
+            '6sigma-img.jpg',
+            'radiationsafety-img.jpg',
+            'msoffice-img.jpg',
+            'electrochem-img.jpg',
+            'mdrd-img.jpg',
+            'or-img.jpg',
+            'htmlcss-img.jpg',            
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function displayIcons() {
+            const iconContainer = document.getElementById('iconContainer');
+            iconContainer.innerHTML = '';
+
+            shuffleArray(icons);
+            icons.slice(0, 4).forEach((iconPath, index) => {
+                const img = document.createElement('img');
+                img.src = iconPath;
+                img.classList.add('icon');
+                img.style.animation = `shuffle ${index * 0.5}s forwards`;
+                iconContainer.appendChild(img);
+            });
+        }
+
+        displayIcons();
+        setInterval(displayIcons, 3000); // Shuffle every 3 seconds
+    });
+</script>
+
+</html>
