@@ -8,13 +8,13 @@
     <title>My Healthcare Portfolio</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('PXL_20240719_210140932.crop.jpg') no-repeat right center fixed;
-    background-size: cover;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('PXL_20240719_210140932.crop.jpg') no-repeat right center fixed;
+            background-size: cover;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
         body.dark-mode {
             background-color: #121212;
@@ -26,9 +26,6 @@
             padding: 1rem;
             text-align: center;
         }
-        header {
-            position: relative;
-        }
         header h1 {
             color: white;
         }
@@ -39,9 +36,6 @@
             display: flex;
             justify-content: center;
             gap: 1rem;
-        }
-        nav ul li {
-            display: inline;
         }
         nav ul li a {
             color: #fff;
@@ -108,7 +102,7 @@
         h2, h3 {
             color: #2a9d8f;
         }
-        .bio, .projects, .skills, .contact {
+        .bio, .projects, .skills, .contact, .sponsorship {
             margin-bottom: 2rem;
             background-color: rgba(255, 255, 255, 0.9);
             padding: 1rem;
@@ -116,7 +110,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-        .dark-mode .bio, .dark-mode .projects, .dark-mode .skills, .dark-mode .contact {
+        .dark-mode .bio, .dark-mode .projects, .dark-mode .skills, .dark-mode .contact, .dark-mode .sponsorship {
             background-color: rgba(18, 18, 18, 0.9);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
@@ -128,15 +122,12 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .bio p {
+        .bio p, ul {
             margin: 0.5rem 0;
         }
         ul {
             list-style-type: none;
             padding: 0;
-        }
-        li {
-            margin: 0.5rem 0;
         }
         a {
             color: #2a9d8f;
@@ -159,8 +150,8 @@
             height: 100%;
         }
         .icon {
-            width: 100px;
-            height: 60px;
+            width: 70px;
+            height: 45px;
             margin-bottom: 30px;
             transition: transform 0.5s, opacity 0.5s;
             opacity: 0;
@@ -189,36 +180,24 @@
             right: var(--arrow-movement);
             opacity: 1;
         }
-        .sponsorship {
-            margin-bottom: 2rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        .bubble {
+            display: inline-block;
+            padding: 20px;
+            border-radius: 50%;
+            background-color: #2a9d8f;
+            color: white;
+            margin: 20px;
+            position: relative;
         }
-        .dark-mode .sponsorship {
-            background-color: rgba(18, 18, 18, 0.9);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-        }
-        .bubble { 
-            display: inline-block; 
-            padding: 20px; 
-            border-radius: 50%; 
-            background-color: #2a9d8f; 
-            color: white; 
-            margin: 20px; 
-            position: relative; 
-        } 
-        .bubble:before { 
-            content: ''; 
-            position: absolute; 
-            top: 100%; 
-            left: 50%; 
-            margin-left: -10px; 
-            border-width: 10px; 
-            border-style: solid; 
-            border-color: #2a9d8f transparent transparent transparent; 
+        .bubble:before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #2a9d8f transparent transparent transparent;
         }
         .countdown {
             font-size: 1.5em;
@@ -240,26 +219,6 @@
         #work, #grad {
             color: #2a9d8f; /* Green color */
             font-weight: bold;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('PXL_20240719_210140932.crop.jpg') no-repeat right center fixed;
-            background-size: cover;
-            color: #333;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        body.dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
-        .dark-mode nav, .dark-mode footer, .dark-mode header {
-            background-color: #1e88e5;
-        }
-        .dark-mode .bio, .dark-mode .projects, .dark-mode .skills, .dark-mode .contact, .dark-mode .sponsorship {
-            background-color: rgba(18, 18, 18, 0.9);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -298,7 +257,7 @@
                     <p class="mb-1"><strong>Description:</strong> A digital checklist with the ability to add, modify, and delete the questions. The status of questions can be changed to yes, no, or N/A.</p>
                     <p class="mb-1"><strong>Technologies Used:</strong> HTML, CSS, React, JSX, JavaScript, Functional Components, React Hooks (useState)</p>
                 </div>
-                <div class="col-md-3                 text-right">
+                <div class="col-md-3 text-right">
                     <a href="surgicalChecklist.html">
                         <img src="surgchecklist-pic.png" alt="Digital Pre-Operative Surgical Checklist" class="img-fluid" style="width: 100px; height: 100px;">
                     </a>
@@ -399,7 +358,7 @@
             <h2>Contact</h2>
             <div id="contactContainer" class="position-relative">
                 <div class="arrow-container">
-                    <div class="arrow">&#8592; Hire Me!</div>
+                    <div class="arrow">&#8592; Hire Me!</div> <!-- Unicode left arrow with text -->
                 </div>
                 <p><strong>Email: <span id="email"></span></strong></p>
                 <p><strong>GitHub: <span id="github"></span></strong></p>
@@ -412,95 +371,52 @@
         <p>&copy; Phil H 2024</p>
         <p id="visitCounter">This Page Has Been Visited By 0 Great People!</p>
     </footer>
+    <!-- Obfuscate the email and link from scraping -->
     <script>
         // Dark mode toggle
         document.getElementById('darkModeToggle').addEventListener('change', function() {
             document.body.classList.toggle('dark-mode');
         });
-    
+
         // Function to obfuscate email and GitHub link
         document.addEventListener('DOMContentLoaded', function() {
             let part1 = "philhutchison";
             let part2 = "outlook.com";
             document.getElementById("email").innerHTML = '<a href="mailto:' + part1 + '@' + part2 + '">' + part1 + '@' + part2 + '</a>';
-    
+
             let gitUser = "ElectronGun";
             document.getElementById("github").innerHTML = '<a href="https://github.com/' + gitUser + '">GitHub Profile</a>';
         });
-    
+
         // Function to calculate the time remaining until a specified date
         function countdownTimer(elementId, targetDate) {
             const timerElement = document.getElementById(elementId);
-    
+
             function updateTimer() {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
-    
+
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
                 timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    
+
                 if (distance < 0) {
                     clearInterval(interval);
                     timerElement.innerHTML = "EXPIRED";
                 }
             }
-    
+
             const interval = setInterval(updateTimer, 1000);
             updateTimer();
         }
-    
+
         // Set the dates for the countdown timers
         const summerWorkPlacementDate = new Date("April 30, 2025 00:00:00").getTime();
         const graduationDate = new Date("April 30, 2027 00:00:00").getTime();
-    
-        // Initialize the countdown timers
-        countdownTimer("work", summerWorkPlacementDate);
-        countdownTimer("grad", graduationDate);
-    </script>
-    <script>
-        // Function to obfuscate email and GitHub link
-        document.addEventListener('DOMContentLoaded', function() {
-            let part1 = "philhutchison";
-            let part2 = "outlook.com";
-            document.getElementById("email").innerHTML = '<a href="mailto:' + part1 + '@' + part2 + '">' + part1 + '@' + part2 + '</a>';
-    
-            let gitUser = "ElectronGun";
-            document.getElementById("github").innerHTML = '<a href="https://github.com/' + gitUser + '">GitHub Profile</a>';
-        });
-    
-        // Function to calculate the time remaining until a specified date
-        function countdownTimer(elementId, targetDate) {
-            const timerElement = document.getElementById(elementId);
-    
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-    
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-                timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    
-                if (distance < 0) {
-                    clearInterval(interval);
-                    timerElement.innerHTML = "EXPIRED";
-                }
-            }
-    
-            const interval = setInterval(updateTimer, 1000);
-            updateTimer();
-        }
-    
-        // Set the dates for the countdown timers
-        const summerWorkPlacementDate = new Date("April 30, 2025 00:00:00").getTime();
-        const graduationDate = new Date("April 30, 2027 00:00:00").getTime();
-    
+
         // Initialize the countdown timers
         countdownTimer("work", summerWorkPlacementDate);
         countdownTimer("grad", graduationDate);
@@ -568,7 +484,7 @@
         const secretMessage = "You're Awesome!";
         const encryptedMessage = btoa(secretMessage);
         document.getElementById("bubble").innerText = encryptedMessage;
-    
+
         function decryptMessage() {
             const decryptedMessage = atob(encryptedMessage);
             document.getElementById("bubble").innerText = decryptedMessage;
