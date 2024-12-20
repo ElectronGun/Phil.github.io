@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Counter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      
+      function Counter(props) {
+        const [counter, setCounter] = React.useState(props.initial);
+
+        // Increment counter by 1 if counter is less than 20
+        function increment() {
+          if (counter < 20) {
+            setCounter(counter + 1);
+          }
+        }
+
+        // Increment counter by 10 if counter is less than or equal to 10
+        function incrementBy10() {
+          if (counter <= 10) {
+            setCounter(counter + 10);
+          }
+        }
+
+        // Decrement counter by 1 but not below 0
+        function decrement() {
+          if (counter >= 1) {
+            setCounter(counter - 1);
+          }
+        }
+
+        // Set the counter to a random value between 1 and 20
+        function setRandom() {
+          const randomValue = Math.floor(Math.random() * 20) + 1;
+          setCounter(randomValue);
+        }
+
+        return (
+          <div>
+            <h1>Counter: {counter}</h1>
+            <button onClick={increment}>Increment</button>
+            <button onClick={incrementBy10}>10x Increment</button>
+            <button onClick={decrement}>Decrement</button>
+            <button onClick={setRandom}>Random</button>
+          </div>
+        );
+      }
+
+      // Prop to set the initial counter to 4
+      Counter.defaultProps = {
+        initial: 4
+      };
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<Counter />);
+
+      
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>

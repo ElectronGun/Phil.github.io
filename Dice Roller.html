@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dice Roller</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      // DiceRoller component definition
+      function DiceRoller() {
+        // State to store the input number - empty string
+        const [number, setNumber] = React.useState('');
+        // State to store the results of the dice rolls - empty array
+        const [results, setResults] = React.useState([]);
+
+        // Handle input change event
+        // Update the state with the value entered in the input textbox
+        const handleChange = (e) => {
+          setNumber(e.target.value);
+        };
+
+        // Handle form submission event
+        const handleSubmit = (e) => {
+          e.preventDefault(); // Prevent the default form submission behavior
+          // Generate an array of random numbers between 1 and 6
+          // Creates an array of specified length, 'number'. Fills the array with undefined values. 
+          // Maps over the array to generate random numbers between 1 and 6.
+          // Updates the results state with the generated array of random numbers(setResults).
+          setResults(Array(Number(number)).fill().map(() => Math.floor(Math.random() * 6) + 1));
+        };
+
+        return (
+          <div>
+            {/* Heading above the textbox */}
+            <h2>Enter the number of dice you want to roll!</h2>
+            {/* Form to accept user input and submit */}
+            {/* The onChange event on the input textbox is set to handleChange */}
+            {/* Any changes in textbox, handleChange is called, and the number state is updated with the new value */} 
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={number} onChange={handleChange} placeholder="Enter a number" />
+              <button type="submit">Roll Dice</button>
+            </form>
+            <div>
+              {/* Display the results if there are any */}
+              {/* Checks if the results array has any elements. If results.length is greater than 0, Dice result is rendered */}
+              {/* Dice index is incremented if more than 1 dice rolled */}
+              {/* Result is mapped from Results */}
+              {results.length > 0 && (
+                <div>
+                  <h3>Results:</h3>
+                  <ul>
+                    {results.map((result, index) => (
+                      <li key={index}>Dice {index + 1}: {result}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      // Render the DiceRoller component into the root
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<DiceRoller />);
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Components Example - FB Clone</title>
+    <style>
+        .user-profile {
+            margin: 20px 0;
+        }
+        .user-name {
+            color: #2a9d8f;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .post-title {
+            color: #007bff;
+        }
+        .like-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .form-container {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .form-container input, .form-container textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React and Babel CDN links -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function UserProfile({ user }) {
+            return (
+                <div className="user-profile">
+                    <h2 className="user-name">{user.name}</h2>
+                    <p className="user-bio">{user.bio}</p>
+                </div>
+            );
+        }
+
+        function Post({ post }) {
+            const [likes, setLikes] = useState(0);
+            const handleLike = () => {
+                setLikes(prevLikes => prevLikes + 1);
+            };
+            return (
+                <div className="post">
+                    <h3 className="post-title">{post.title}</h3>
+                    <p className="post-content">{post.content}</p>
+                    <button 
+                        className="like-button" 
+                        onClick={handleLike} 
+                        style={{ backgroundColor: likes > 0 ? 'lightgreen' : 'lightgrey' }}
+                    >
+                        Like ({likes})
+                    </button>
+                </div>
+            );
+        }
+
+        function CreatePostForm({ addPost }) {
+            const [title, setTitle] = useState('');
+            const [content, setContent] = useState('');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                addPost(title, content);
+                setTitle('');
+                setContent('');
+            };
+
+            return (
+                <div className="form-container">
+                    <h2>Create a Post</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input 
+                            type="text" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            placeholder="Title"
+                        />
+                        <textarea 
+                            value={content} 
+                            onChange={(e) => setContent(e.target.value)} 
+                            rows="4" 
+                            placeholder="Content"
+                        ></textarea>
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
+            );
+        }
+
+        function App() {
+            const user = {
+                name: 'Phil H',
+                bio: 'Healthcare professional and tech enthusiast, dedicated to improving patient outcomes through innovative solutions.'
+            };
+
+            const initialPosts = [
+                { id: 1, title: 'Welcome to My Blog', content: 'Excited to share my journey in digital health and technology!' },
+                { id: 2, title: 'Tech in Healthcare', content: 'Exploring the impact of cutting-edge technology in the healthcare sector.' },
+                { id: 3, title: 'Project Highlights', content: 'Showcasing my favorite projects and the technologies behind them.' }
+            ];
+
+            const [posts, setPosts] = useState(initialPosts);
+
+            const addPost = (title, content) => {
+                const newPost = {
+                    id: posts.length + 1,
+                    title,
+                    content
+                };
+                setPosts([...posts, newPost]);
+            };
+
+            return (
+                <div className="app">
+                    <h1>Welcome to My Blog</h1>
+                    <UserProfile user={user} />
+                    <CreatePostForm addPost={addPost} />
+                    <div className="posts">
+                        {posts.map(post => (
+                            <Post key={post.id} post={post} />
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
