@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double SHA-256 Hash Solver</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            padding: 2rem;
+            text-align: center;
+        }
+        .result, .target, .win-message, .hash-count, .loading, .time-taken {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        .target {
+            color: #2a9d8f;
+        }
+        .win-message {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .info {
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .info p {
+            margin: 0.5rem 0;
+        }
+        .loading {
+            display: none;
+        }
+        .progress {
+            height: 20px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Double SHA-256 Hash Solver</h1>
+        <div class="mb-3">
+            <input type="text" id="dataInput" class="form-control" placeholder="Enter data">
+        </div>
+        <button class="btn btn-primary" onclick="startHashing()">Start Hashing</button>
+        <div class="progress">
+            <div id="progressBarIncremental" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <p id="loadingIncremental" class="loading">Incremental Hashing in progress...</p>
+        <p id="hashCountIncremental" class="hash-count"></p>
+        <p id="resultIncremental" class="result"></p>
+        <p id="timeTakenIncremental" class="time-taken">Time taken (Incremental): 0.00 seconds</p>
+        <div class="progress">
+            <div id="progressBarRandom" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <p id="loadingRandom" class="loading">Random Hashing in progress...</p>
+        <p id="hashCountRandom" class="hash-count">Hashes completed (Random): 0</p>
+        <p id="resultRandom" class="result"></p>
+        <p id="timeTakenRandom" class="time-taken">Time taken (Random): 0.00 seconds</p>
+        <p id="target" class="target">Target: 00000GoTtAlOvEcRyPtO</p>
+        <p id="winMessage" class="win-message"></p>
+        <div class="info">
+            <h3>What is Happening?</h3>
+            <p>The SHA-256 hash function takes an input and produces a fixed-size string of characters, which is a unique representation of the data.</p>
+            <p>We are using the double SHA-256 hash function, which means we apply SHA-256 twice.</p>
+            <p>The target value is a threshold that the resulting hash must be below to be considered valid. The more leading zeros in the target, the harder it is to find a valid hash.</p>
+            <p>There are two methods being used to find the hash:</p>
+            <ul>
+                <li><strong>Incremental Nonce Hashing</strong>: This method tests nonce values sequentially, starting from 0 and incrementing by 1 with each attempt.</li>
+                <ul>
+                    <li><strong>How It Works</strong>: This method tests nonce values sequentially, starting from 0 and incrementing by 1 with each attempt (e.g., 0, 1, 2, 3,...).</li>
+                    <li><strong>Outcome</strong>: The hash value found by this method will depend on the exact sequence of nonce values tested. Because the method follows a predictable pattern, it will find a hash value based on the first nonce that meets the target criteria.</li>
+                </ul>
+                <li><strong>Random Nonce Hashing</strong>: This method tests nonce values chosen randomly within the possible range.</li>
+                <ul>
+                    <li><strong>How It Works</strong>: This method tests nonce values chosen randomly within the possible range. Each nonce value is independently selected and is not influenced by the previous attempts.</li>
+                    <li><strong>Outcome</strong>: The hash value found by this method will be based on the random nonce values generated. Because the method does not follow a predictable sequence, it may stumble upon a valid hash value earlier or later than the incremental method.</li>
+                </ul>
+            </ul>
+            <p>Although both methods aim to find a hash below the target value, they may find different valid hashes due to the nature of their nonce selection:</p>
+            <ul>
+                <li><strong>Different Nonce Values</strong>: The key difference is in the nonce values used for hashing. Even if both methods are solving the same problem (finding a hash below the target value), the specific nonce value that results in a valid hash will vary.</li>
+                <li><strong>Non-Deterministic Nature</strong>: The random method is non-deterministic and can find a valid hash at any point within the range, whereas the incremental method is deterministic and follows a specific order.</li>
+            </ul>
+            <p>The target value has 3 zeros difficulty.</p>
+        </div>
+    </div>
+
+    <script>
+        function doubleSHA256(input) {
+            return CryptoJS.SHA256(CryptoJS.SHA256(input)).toString();
+        }
+
+        let targetInitial = "000GoTtAlOvEcRyPtO"; // Initial target value
+        let target = targetInitial;
+        let maxAttempts = 100000; // Maximum number of attempts
+        let startTimeIncremental, startTimeRandom;
+        let hashCountRandom = 0; // Counter for random nonce tests
+
+        function startHashing() {
+            const data = document.getElementById('dataInput').value;
+            if (!data) {
+                alert("Please enter some data to start hashing.");
+                return;
+            }
+            
+            target = targetInitial; // Reset target to initial value
+            hashCountRandom = 0; // Reset random hash counter
+            document.getElementById('target').textContent = `Target: ${target}`; // Display the reset target
+            document.getElementById('hashCountRandom').textContent = `Hashes completed (Random): 0`; // Reset random hash count display
+            document.getElementById('timeTakenIncremental').textContent = `Time taken (Incremental): 0.00 seconds`; // Reset incremental time display
+            document.getElementById('timeTakenRandom').textContent = `Time taken (Random): 0.00 seconds`; // Reset random time display
+
+            let nonceIncremental = 0;
+            let nonceRandom;
+            let hashIncremental;
+            let hashRandom;
+            startTimeIncremental = Date.now();
+            startTimeRandom = Date.now();
+            const progressBarIncremental = document.getElementById('progressBarIncremental');
+            const progressBarRandom = document.getElementById('progressBarRandom');
+
+            document.getElementById('loadingIncremental').style.display = 'block'; // Show incremental loading message
+            document.getElementById('loadingRandom').style.display = 'block'; // Show random loading message
+
+            function hashLoopIncremental() {
+                hashIncremental = doubleSHA256(data + nonceIncremental);
+                document.getElementById('hashCountIncremental').textContent = `Hashes completed (Incremental): ${nonceIncremental}`; // Update hash count
+                progressBarIncremental.style.width = `${(nonceIncremental / maxAttempts) * 100}%`; // Update progress bar
+
+                if (hashIncremental < target || nonceIncremental >= maxAttempts) {
+                    const timeTaken = (Date.now() - startTimeIncremental) / 1000;
+                    document.getElementById('resultIncremental').textContent = `Hash found (Incremental): ${hashIncremental} (Nonce: ${nonceIncremental})`;
+                    document.getElementById('timeTakenIncremental').textContent = `Time taken (Incremental): ${timeTaken.toFixed(2)} seconds`;
+                    document.getElementById('loadingIncremental').style.display = 'none'; // Hide loading message
+                    progressBarIncremental.style.width = '100%'; // Ensure progress bar reaches 100%
+                    triggerConfetti(); // Trigger confetti animation
+                } else {
+                    nonceIncremental++;
+                    setTimeout(hashLoopIncremental, 0); // Continue hashing
+                }
+            }
+
+            function hashLoopRandom() {
+                nonceRandom = Math.floor(Math.random() * maxAttempts); // Generate a random nonce
+                hashRandom = doubleSHA256(data + nonceRandom);
+                hashCountRandom++; // Increment the random hash count
+                document.getElementById('hashCountRandom').textContent = `Hashes completed (Random): ${hashCountRandom}`; // Update hash count display
+                progressBarRandom.style.width = `${(hashCountRandom / maxAttempts) * 100}%`; // Update progress bar
+
+                if (hashRandom < target || hashCountRandom >= maxAttempts) {
+                    const timeTaken = (Date.now() - startTimeRandom) / 1000;
+                    document.getElementById('resultRandom').textContent = `Hash found (Random): ${hashRandom} (Nonce: ${nonceRandom})`;
+                    document.getElementById('timeTakenRandom').textContent = `Time taken (Random): ${timeTaken.toFixed(2)} seconds`;
+                    document.getElementById('loadingRandom').style.display = 'none'; // Hide loading message
+                    progressBarRandom.style.width = '100%'; // Ensure progress bar reaches 100%
+                    triggerConfetti(); // Trigger confetti animation
+                } else {
+                    setTimeout(hashLoopRandom, 0); // Continue hashing
+                }
+            }
+            hashLoopIncremental(); // Start the incremental hashing loop
+            hashLoopRandom(); // Start the random hashing loop
+        }
+
+        function triggerConfetti() {
+            window.confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Absence Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #007bff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #form-container, #analysisResults, #analysisLogic {
+            margin-bottom: 20px;
+        }
+        .flag {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #e6f4ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Absence Analyzer</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Date of Absence</th>
+                <th>Reason</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="absenceTableBody">
+            <!-- Absence data will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <div id="form-container">
+        <h2>Add Absence</h2>
+        <input type="text" id="employeeId" placeholder="Employee ID">
+        <input type="text" id="employeeName" placeholder="Name">
+        <input type="date" id="absenceDate">
+        <input type="text" id="absenceReason" placeholder="Reason">
+        <button onclick="addAbsence()">Add Absence</button>
+    </div>
+    <button onclick="analyzeAbsences()">Analyze Absences</button>
+    <div id="analysisResults"></div>
+    <div id="analysisLogic"></div>
+    <script>
+        let absenceData = JSON.parse(localStorage.getItem('absenceData')) || [];
+
+        const canadianHolidays = [
+            '2025-01-01', // New Year's Day
+            '2025-02-17', // Family Day
+            '2025-04-18', // Good Friday
+            '2025-05-19', // Victoria Day
+            '2025-07-01', // Canada Day
+            '2025-08-04', // Civic Holiday
+            '2025-09-01', // Labour Day
+            '2025-10-13', // Thanksgiving Day
+            '2025-11-11', // Rememberance Day
+            '2025-12-25', // Christmas Day
+            '2025-12-26', // Boxing Day
+        ];
+
+        function loadAbsenceData() {
+            const tableBody = document.getElementById('absenceTableBody');
+            tableBody.innerHTML = ''; // Clear existing data
+            absenceData.forEach((absence, index) => {
+                const row = document.createElement('tr');
+                Object.values(absence).forEach(text => {
+                    const cell = document.createElement('td');
+                    cell.textContent = text;
+                    row.appendChild(cell);
+                });
+                const actionsCell = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteAbsence(index);
+                actionsCell.appendChild(deleteButton);
+                row.appendChild(actionsCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        function saveAbsenceData() {
+            localStorage.setItem('absenceData', JSON.stringify(absenceData));
+        }
+
+        function addAbsence() {
+            const id = document.getElementById('employeeId').value;
+            const name = document.getElementById('employeeName').value;
+            const date = document.getElementById('absenceDate').value;
+            const reason = document.getElementById('absenceReason').value;
+
+            if (!id || !name || !date || !reason) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            absenceData.push({ id, name, date, reason });
+            loadAbsenceData();
+            saveAbsenceData();
+            clearInputFields();
+        }
+
+        function deleteAbsence(index) {
+            absenceData.splice(index, 1);
+            loadAbsenceData();
+            saveAbsenceData();
+        }
+
+        function clearInputFields() {
+            document.getElementById('employeeId').value = '';
+            document.getElementById('employeeName').value = '';
+            document.getElementById('absenceDate').value = '';
+            document.getElementById('absenceReason').value = '';
+        }
+
+        function analyzeAbsences() {
+            const mondayFridayAbsences = {};
+            const monthlyAbsences = {};
+            const quarterlyAbsences = {};
+            const reasonClusters = {};
+            const holidayClusters = {};
+
+            absenceData.forEach(absence => {
+                const dateParts = absence.date.split('-');
+                const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                const day = date.getDay();
+                const month = `${dateParts[0]}-${dateParts[1]}`;
+                const quarter = Math.floor((date.getMonth() + 3) / 3);
+                const quarterKey = `${dateParts[0]}-Q${quarter}`;
+                const twoMonthPeriod = `${dateParts[0]}-${Math.ceil((date.getMonth() + 1) / 2)}`;
+
+                // Count absences on Mondays and Fridays
+                if (day === 1 || day === 5) {
+                    if (!mondayFridayAbsences[absence.id]) {
+                        mondayFridayAbsences[absence.id] = {};
+                    }
+                    if (!mondayFridayAbsences[absence.id][month]) {
+                        mondayFridayAbsences[absence.id][month] = 0;
+                    }
+                    if (!mondayFridayAbsences[absence.id][twoMonthPeriod]) {
+                        mondayFridayAbsences[absence.id][twoMonthPeriod] = 0;
+                    }
+                    mondayFridayAbsences[absence.id][month]++;
+                    mondayFridayAbsences[absence.id][twoMonthPeriod]++;
+                }
+
+                // Count monthly absences
+                if (!monthlyAbsences[month]) {
+                    monthlyAbsences[month] = {};
+                }
+                if (!monthlyAbsences[month][absence.id]) {
+                    monthlyAbsences[month][absence.id] = 0;
+                }
+                monthlyAbsences[month][absence.id]++;
+
+                // Count quarterly absences
+                if (!quarterlyAbsences[quarterKey]) {
+                    quarterlyAbsences[quarterKey] = {};
+                }
+                if (!quarterlyAbsences[quarterKey][absence.id]) {
+                    quarterlyAbsences[quarterKey][absence.id] = 0;
+                }
+                quarterlyAbsences[quarterKey][absence.id]++;
+
+                // Group absences by reason
+                if (!reasonClusters[absence.reason]) {
+                    reasonClusters[absence.reason] = [];
+                }
+                reasonClusters[absence.reason].push(absence);
+
+                // Group absences around Canadian holidays
+                if (isNearHoliday(absence.date)) {
+                    if (!holidayClusters[absence.id]) {
+                        holidayClusters[absence.id] = [];
+                    }
+                    holidayClusters[absence.id].push(absence.date);
+                }
+            });
+
+            displayAnalysisResults(mondayFridayAbsences, monthlyAbsences, quarterlyAbsences, reasonClusters, holidayClusters);
+        }
+
+        function isNearHoliday(date) {
+            const targetDate = new Date(date);
+            return canadianHolidays.some(holiday => {
+                const holidayDate = new Date(holiday);
+                const difference = Math.abs(targetDate - holidayDate);
+                const oneDay = 24 * 60 * 60 * 1000;
+                return difference <= 3 * oneDay; // Absences within 3 days of a holiday
+            });
+        }
+
+        function displayAnalysisResults(mondayFridayAbsences, monthlyAbsences, quarterlyAbsences, reasonClusters, holidayClusters) {
+            const resultsDiv = document.getElementById('analysisResults');
+            resultsDiv.innerHTML = '<h3>Analysis Results</h3>';
+
+            const flaggedEmployees = {};
+
+            // Simplify and clean up output
+            absenceData.forEach(absence => {
+                const id = absence.id;
+                const name = absence.name;
+                const flags = [];
+
+                if (mondayFridayAbsences[id] && Object.values(mondayFridayAbsences[id]).some(count => count >= 3)) {
+                    flags.push('Frequent absences on Mondays and Fridays.');
+                }
+                if (monthlyAbsences && Object.keys(monthlyAbsences).some(month => monthlyAbsences[month][id] >= 3)) {
+                    flags.push('3 or more absences in a month.');
+                }
+                if (quarterlyAbsences && Object.keys(quarterlyAbsences).some(quarter => quarterlyAbsences[quarter][id] >= 10)) {
+                    flags.push('10 or more absences in a quarter.');
+                }
+                if (holidayClusters[id] && holidayClusters[id].length > 0) {
+                    flags.push('Absences around holidays.');
+                }
+
+                if (flags.length > 0) {
+                    flaggedEmployees[id] = { name, flags };
+                }
+                });
+
+                // Display flagged employees with descriptive messages
+                Object.keys(flaggedEmployees).forEach(id => {
+                    const employee = flaggedEmployees[id];
+                    const employeeDiv = document.createElement('div');
+                    employeeDiv.classList.add('flag');
+                    employeeDiv.innerHTML = `<strong>Employee ID:</strong> ${id}, <strong>Name:</strong> ${employee.name}<br>`;
+                    employee.flags.forEach(flag => {
+                        employeeDiv.innerHTML += `<strong>Flag:</strong> ${flag}<br>`;
+                    });
+                    resultsDiv.appendChild(employeeDiv);
+                });
+                }
+
+                // Function to display analysis logic
+                function displayAnalysisLogic() {
+                    const logicDiv = document.getElementById('analysisLogic');
+                    logicDiv.innerHTML = '<h3>Analysis Logic</h3>';
+                    logicDiv.innerHTML += '<p><strong>Frequent absences on Mondays and Fridays:</strong> Triggered when an employee has 3 or more absences on Mondays or Fridays within a month.</p>';
+                    logicDiv.innerHTML += '<p><strong>3 or more absences in a month:</strong> Triggered when an employee has 3 or more absences within a single month.</p>';
+                    logicDiv.innerHTML += '<p><strong>10 or more absences in a quarter:</strong> Triggered when an employee has 10 or more absences within a quarter (3 months).</p>';
+                    logicDiv.innerHTML += '<p><strong>Absences around holidays:</strong> Triggered when an employee has absences within 3 days before or after a recognized Canadian holiday.</p>';
+                }
+
+                window.onload = () => {
+                    loadAbsenceData();
+                    displayAnalysisLogic();
+                };
+</script>
+</body>
+</html>
