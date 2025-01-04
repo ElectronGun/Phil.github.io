@@ -242,7 +242,7 @@
             border-radius: 5px;
         }
         .timer {
-            background-color: #2a9d8f; /* Matches the green color from email and GitHub profile */
+            background-color: #2a9d8f;
             color: black; /* Black font color for timer labels */
             padding: 20px;
             border-radius: 10px;
@@ -335,7 +335,7 @@
             </div>
             <div class="project row mb-3">
                 <div class="col-md-9">
-                    <h3 class="mb-1">Capstone Level - Instrument Management System (IMS) - In Progress</h3>
+                    <h3 class="mb-1">Instrument Management System (IMS) - In Progress</h3>
                     <p class="mb-1"><strong>Description:</strong> A digital autonomous system capable of tracking the status and location of sterilized medical equipment. The system uses a SQL database which interfaces with a barcoded list.</p>
                     <p class="mb-1"><strong>Technologies Used:</strong> HTML, CSS, JavaScript, Bootstrap, Fetch, PHP</p>
                 </div>
@@ -348,7 +348,9 @@
                 <p>Check out these fun projects: 
                     <a href="counter.html" class="project-link">React Counter</a>, 
                     <a href="Dice Roller.html" class="project-link">Dice Roller</a>, 
-                    <a href="FBclone.html" class="project-link">FB Clone - React Components</a>. 
+                    <a href="FBclone.html" class="project-link">FB Clone - React Components</a>,
+                    <a href="hashingSHA256.html" class="project-link">Hash Solver</a>,
+                    <a href="AbsenceAnalyzer.html.html" class="project-link">Employee Absence Analyzer</a>, 
                 </p> 
             </div>
         </section>
@@ -516,11 +518,11 @@
     </script>
     <script>
         const secretMessage = "You're Awesome!";
-        const encryptedMessage = btoa(secretMessage);
+        const encryptedMessage = btoa(secretMessage); // encrypt (binary to ascii)
         document.getElementById("bubble").innerText = encryptedMessage;
 
         function decryptMessage() {
-            const decryptedMessage = atob(encryptedMessage);
+            const decryptedMessage = atob(encryptedMessage); // decrypt (ascii to binary)
             document.getElementById("bubble").innerText = decryptedMessage;
         }
     </script>
