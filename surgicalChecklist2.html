@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Operative Checklist</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          font-size: 20px;
+      }
+      .container {
+          display: flex;
+      }
+      table {
+          width: 55%;
+          border-collapse: collapse;
+      }
+      th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: left;
+      }
+      th {
+          background-color: #f2f2f2;
+      }
+      .box {
+          width: 45%;
+          border: 2px dashed black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: bold;
+      }
+  </style>
+</head>
+<body>
+    <h1 class="header">Hutchison Ross Memorial</h1>
+    <h2 class="header">Pre-Operative Checklist</h2>
+    <div class="container">
+      <table>
+          <tr>
+              <th>Procedure:</th>
+              <td colspan="3"><input type="text" style="width: 50ch;"></td>
+          </tr>
+          <tr>
+              <th>Site (Left/Right/NA):</th>
+              <td colspan="3"><input type="text" style="width: 20ch;"></td>
+          </tr>
+          <tr>
+              <th>Surgeon:</th>
+              <td colspan="3"><input type="text" style="width: 40ch;"></td>
+          </tr>
+          <tr>
+              <th>Date of Procedure:</th>
+              <td colspan="3"><input type="text" style="width: 20ch;"></td>
+          </tr>
+          <tr>
+              <th>Allergies:</th>
+              <td><input type="checkbox">Yes <input type="checkbox">No (Refer to Chart)</td>
+              <th>Latex Allergy:</th>
+              <td><input type="checkbox">Yes <input type="checkbox"> No</td>
+          </tr>
+      </table>
+      <div class="box">
+          Patient Label Here
+      </div>
+    </div>
+
+    <p><strong>Instructions:</strong> Initial appropriate sections.</p>
+    <table style="width: 100%;">
+        <tr>
+            <th>Item</th>
+            <th>Unit Nurse</th>
+            <th>O.R. Nurse</th>
+        </tr>
+        <tr>
+            <td>1. Patient identification labels available and verified</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit1_yes"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or1_yes"></td>
+        </tr>
+        <tr>
+            <td>2. Patient identification wristband on and verified</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit2_yes"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or2_yes"></td>
+        </tr>
+        <tr>
+            <td>3. Procedure consent complete and verified</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit3_yes"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or3_yes"></td>
+        </tr>
+        <tr>
+            <td>4. Blood product consent complete and verified</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit4_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit4_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or4_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or4_na"></td>
+        </tr>
+        <tr>
+            <td>5. Advanced care patient directive completed for patients over the<br>
+                age of 18 (excludes obstetrical patients)</br>
+            </td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit5_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit5_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or5_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or5_na"></td>
+        </tr>
+        <tr>
+            <td>6. Pre-operative patient questionnaire completed</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit6_yes"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or6_yes"></td>
+        </tr>
+        <tr>
+            <td>7. Infection prevention and control screening complete/reviewed</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit7_yes"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or7_yes"></td>
+        </tr>
+        <tr>
+            <td>8. Operative site marked and confirmed</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit8_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit8_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or8_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or8_na"></td>
+        </tr>
+        <tr>
+            <td>9. Preoperative consultation complete if ordered</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit9_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit9_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or9_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or9_na"></td>
+        </tr>
+        <tr>
+            <td>10. Preoperative testing complete as ordered (e.g., bloodwork)</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit10_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit10_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or10_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or10_na"></td>
+        </tr>
+        <tr>
+            <td>11. ECG complete if ordered</td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit11_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit11_na"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or11_yes">
+                N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or11_na"></td>
+        </tr>
+        <tr>
+            <td>12. Blood crossmatched <input type="text" style="width: 10ch;"> UNITS <input type="text" style="width: 20ch;"></td>
+            <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit12_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit12_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or12_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or12_na"></td>
+      </tr>
+      <tr>
+          <td>13. POC glucose (On day of surgery, if diabetic) <br>Fasting: <input type="text" style="width: 20ch;"> Random: <input type="text" style="width: 20ch;"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit13_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit13_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or13_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or13_na"></td>
+      </tr>
+      <tr>
+          <td>14. Pregnancy test completed if clinically indicated</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit14_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit14_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or14_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or14_na"></td>
+      </tr>
+      <tr>
+          <td>15. Malignant hyperthermia risk factors assessed</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit15_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit15_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or15_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or15_na"></td>
+      </tr>
+      <tr>
+          <td>16. Dentures removed</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit16_yes">
+              No <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit16_no">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit16_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or16_yes">
+              No <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or16_no">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or16_na"></td>
+      </tr>
+      <tr>
+          <td>17. Contact lenses removed</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit17_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit17_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or17_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or17_na"></td>
+      </tr>
+      <tr>
+          <td>18. Prosthesis removed</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit18_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit18_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or18_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or18_na"></td>
+      </tr>
+      <tr>
+          <td>19. Hearing aids removed; <input type="checkbox" name="hearing_aid_right"> Right <input type="checkbox" name="hearing_aid_left"> Left <input type="checkbox" name="hearing_aid_bilateral"> Bilateral </td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit19_yes">
+              No <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit19_no">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit19_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or19_yes">
+              No <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or19_no">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or19_na"></td>
+      </tr>
+      <tr>
+          <td>20. Jewelry / body piercings removed</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit20_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit20_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or20_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or20_na"></td>
+      </tr>
+      <tr>
+          <td>21. NPO From <input type="text" style="width: 12ch;"> HRS</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit21_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit21_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or21_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or21_na"></td>
+      </tr>
+      <tr>
+          <td>22. Baseline vital signs recorded</td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit22_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit22_na"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or22_yes">
+              N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or22_na"></td>
+      </tr>
+      <tr>
+          <td>23. Void pre-op; Time <input type="text" style="width: 20ch;"></td>
+          <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit23_yes">
+              N/A <input type="text" style="width: 4ch; text-transform:                 uppercase;" maxlength="3" name="unit23_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or23_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or23_na"></td>
+          </tr>
+          <tr>
+              <td>24. Pre-op medication given and charted if ordered</td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit24_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit24_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or24_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or24_na"></td>
+          </tr>
+          <tr>
+              <td>25. Medication record available</td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit25_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit25_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or25_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or25_na"></td>
+          </tr>
+          <tr>
+              <td>26. X-rays completed if ordered and results available</td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit26_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit26_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or26_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or26_na"></td>
+          </tr>
+          <tr>
+              <td>27. Communication barrier; Specify <input type="text" style="width: 20ch;"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit27_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit27_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or27_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or27_na"></td>
+          </tr>
+          <tr>
+              <td>28. If patient has sleep apnea, CPAP is available</td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit28_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit28_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or28_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or28_na"></td>
+          </tr>
+          <tr>
+              <td>29. Discharge transportation confirmed (DAY SURGERY ONLY)<br>
+                  Name: <input type="text" style="width: 20ch;" maxlength="20" name="unit29_name"> Phone #: <input type="text" style="width: 15ch;" maxlength="15" name="unit29_phone"><br>
+              </td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit29_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="unit29_na"></td>
+              <td>Yes <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or29_yes">
+                  N/A <input type="text" style="width: 4ch; text-transform: uppercase;" maxlength="3" name="or29_na"></td>
+          </tr>
+      </table>
+  
+      <div class="signature">
+          <p><strong>Unit Nurse Signature:</strong> <input type="text" class="input-signature"> Date: <input type="text" style="width: 20ch;"></p>
+          <p><strong>O.R. Nurse Signature:</strong> <input type="text" class="input-signature"> Date: <input type="text" style="width: 20ch;"></p>
+          <p><strong>This document may be digitally signed, the signatory confirms that their digital signature is recognized as legally binding.</strong></p>
+      </div>
+  
+      <button onclick="window.print()">Print</button>
+  
+  </body>
+  </html>
+  
