@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Narcotic Administration Record</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            color: black;
+        }
+
+        h1, h2 {
+            color: black; /* Blue color for headings */
+            text-align: left;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            border: 1px solid black; /* Ensures the entire table has black borders */
+        }
+
+        th, td {
+            border: 1px solid black; /* Black borders for all table cells */
+            padding: 8px;
+            text-align: center;
+        }
+
+        td {
+            background-color: #F0F8FF; /* Very light blue for table cells */
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .input-small {
+            width: 3ch;
+        }
+
+        .input-medium {
+            width: 5ch;
+        }
+
+        .input-large {
+            width: 20ch;
+        }
+
+        .input-patient-no {
+            width: 12ch;
+        }
+
+        .input-time {
+            width: 10ch;
+        }
+
+        .input-date {
+            width: 15ch;
+        }
+
+        .input-signature {
+            width: 20ch;
+        }
+
+        .hatched-border {
+            border: 2px dashed #fa0202; /* Red for hatched border */
+            padding: 5px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        .breakage-discard-table, .unused-retuned {
+            width: 100%;
+            margin-top: 5px;
+            border: 1px solid black; /* Ensures the table has black borders */
+            border-collapse: collapse;
+        }
+
+        .breakage-discard-table th, .breakage-discard-table td, .unused-returned th, .unused-returned td {
+            border: 1px solid black; /* Black borders for all table cells */
+            padding: 7px;
+            text-align: center;
+            background-color: #F0F8FF; /* Very light blue for table cells */
+        }
+
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0.5cm; /* Set margins to optimize space */
+            }
+            body {
+                transform: scale(0.98); /* Adjust the scale to better fit the content */
+                transform-origin: top left;
+                margin: 0;
+                padding: 0;
+            }
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 4px; /* Adjust padding to ensure clarity */
+            }
+            .hatched-border {
+                width: auto;
+                padding: 4px; /* Adjust padding to maintain formatting */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Hutchison Ross Memorial</h1>
+    <h2>Narcotics and Controlled Daily Administration Record</h2>
+
+    <header>
+        <p1>Date (from): <input type="date" id="date-from"> to <input type="date" id="date-to"></p1>
+        <p1>For use by: Dr.<input type="text" id="use-by" class="input-large"></p1>
+        <p1>Serial #: <input type="text" id="serial-number" class="input-large"></p1>
+    </header>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Patient Name</th>
+                <th>Patient No.</th>
+                <th>Dose</th>
+                <th class="vertical-text">Fentanyl IN 0.1 mg/2 mL AMP</th>
+                <th class="vertical-text">Fentanyl IN 250 mcg/5 mL AMP</th>
+                <th class="vertical-text">Epidural Morphine (IV) 5 mg/10 mL</th>
+                <th class="vertical-text">Morphine IN 2 mg/mL</th>
+                <th class="vertical-text">Morphine IN 10 mg/mL</th>
+                <th class="vertical-text">Remifentanyl 1 mg vial</th>
+                <th class="vertical-text">Sufentanyl 10 mcg/mL</th>
+                <th class="vertical-text">Midazolam 2 mg/2 mL</th>
+                <th class="vertical-text">Propofol 10 mg/mL</th>
+                <th class="vertical-text"><input type="text" class="input-small"></th>
+                <th class="vertical-text"><input type="text" class="input-small"></th>
+                <th class="vertical-text"><input type="text" class="input-small"></th>
+                <th>Physician Signature</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Entries go here -->
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+            <tr>
+                <td><input type="time" class="input-time"></td>
+                <td><input type="text" class="input-large"></td>
+                <td><input type="text" class="input-patient-no"></td>
+                <td><input type="text" class="input-medium"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-small"></td>
+                <td><input type="text" class="input-signature"></td>
+            </tr>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="hatched-border">
+        <h3>Unused Returned</h3>
+        <table class="unused-returned">
+            <thead>
+                <tr>
+                    <th>Medication Name</th>
+                    <th>Dose</th>
+                    <th>Amount Returned</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Physician Signature: <input type="text" class="input-signature"></p>
+        <p>Counter Signature: <input type="text" class="input-signature"></p>
+        <p>Returned To:</p>
+        <p>
+            <input type="checkbox" id="omnicell" name="returned_to" value="Omnicell">
+            <label for="omnicell">Omnicell</label>
+        </p>
+        <p>
+            <input type="checkbox" id="day-surgery" name="returned_to" value="Day Surgery">
+            <label for="day-surgery">Day Surgery</label>
+        </p>
+        <p><strong>Two signatures are required</strong></p>
+    </div>
+
+    <div class="hatched-border">
+        <h3>Breakage and Discard (Waste)</h3>
+        <table class="breakage-discard-table">
+            <thead>
+                <tr>
+                    <th>Medication Name</th>
+                    <th>Dose</th>
+                    <th>Amount Wasted/Discarded</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-large"></td>
+                    <td><input type="text" class="input-medium"></td>
+                    <td><input type="text" class="input-medium"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Physician Signature: <input type="text" class="input-signature"></p>
+        <p>Counter Signature: <input type="text" class="input-signature"></p>
+        <p><strong>Two signatures are required</strong></p>
+    </div>
+
+    <div class="hatched-border">
+        <h3>For Pharmacy Use Only</h3>
+        <p>Form inspected and complete:</p>
+        <p>Date: <input type="text" class="input-large"></p>
+        <p>Time: <input type="text" class="input-large"></p>
+        <p>Signature: <input type="text" class="input-large"></p>
+    </div>
+
+    <div>
+        <p><strong>This document is digitally signed, the signatory confirms that their digital signature is recognized as legally binding.</strong></p>
+    </div>
+    <button onclick="window.print()">Print</button>
+
+</body>
+</html>
+
+            
